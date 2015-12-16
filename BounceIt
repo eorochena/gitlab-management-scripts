@@ -1,0 +1,16 @@
+#!/usr/bin/python
+
+import os, sys, subprocess
+
+cmd = "drbdadm role data|awk -F'/' '{print $1}'"
+run_it = os.popen(cmd).readline().strip()
+try:
+	if run_it == "Primary":
+		subprocess.call('drbdadm disconnect data', shell=True)
+		subprocess.call('drbdadm connect data', shell=True)
+	else:
+		print "Someone GOOFED somewhere. . . YOU SHOULD NEVER SEE THIS MESSAGE"
+except ValueError:
+	print "Someone GOOFED somewhere. . . YOU SHOULD NEVER SEE THIS MESSAGE"
+	sys.exit(1)
+

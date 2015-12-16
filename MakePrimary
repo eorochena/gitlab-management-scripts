@@ -1,0 +1,17 @@
+#!/usr/bin/python
+
+import os, sys, subprocess
+
+subprocess.call('drbdadm primary data', shell=True)
+cmd = "drbdadm role data|awk -F'/' '{print $1}'"
+run_it = os.popen(cmd).readline().strip()
+
+try:
+	if run_it == "Primary":
+		subprocess.call('mount /dev/drbd0 /var/opt/gitlab', shell=True)
+		subprocess.call('gitlab-ctl reconfigure', shell=True)
+		subprocess.call('gitlab-ctl start', shell=True)
+	else:
+		print "This is not the Primary Node" 
+except ValueError:
+	print "Someone GOOFED somewhere. . . YOU SHOULD NEVER SEE THIS MESSAGE"

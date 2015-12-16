@@ -1,0 +1,16 @@
+#!/usr/bin/python
+
+import sys, os, time
+
+backups_dir = "/var/opt/gitlab/backups/"
+
+list_of_file = []
+
+for backup in os.listdir(backups_dir):
+	backup_file = backups_dir + backup
+	timestamp = backup.split('_')[0]
+	creation_time = time.ctime(os.path.getmtime(backup_file))
+	list_of_file.append("Date for \033[95m%s\033[0m is \033[95m%s\033[0m with a Unix timestamp of \033[95m%s\033[0m" % (backup_file, creation_time, timestamp))
+
+for organized in sorted(list_of_file):
+	print organized 
