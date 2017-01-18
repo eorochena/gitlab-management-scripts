@@ -8,8 +8,10 @@ try:
 	if run_it == "Primary":
 		subprocess.call('drbdadm disconnect data', shell=True)
 		subprocess.call('drbdadm connect data', shell=True)
+        sys.exit(0)
 	else:
 		print "Someone GOOFED somewhere. . . YOU SHOULD NEVER SEE THIS MESSAGE"
+		sys.exit(1)
 except ValueError:
 	print "Someone GOOFED somewhere. . . YOU SHOULD NEVER SEE THIS MESSAGE"
 	sys.exit(1)
