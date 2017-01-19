@@ -2,6 +2,8 @@
 
 import os, sys, subprocess
 
+# Execute on Secondary Node
+
 cmd = "drbdadm role data|awk -F'/' '{print $1}'"
 run_it = os.popen(cmd).readline().strip()
 
@@ -16,4 +18,4 @@ try:
 		sys.exit(1) 
 except ValueError:
 	print "Someone GOOFED somewhere. . . YOU SHOULD NEVER SEE THIS MESSAGE"
-	sys.exit(1)
+	sys.exit(2)
